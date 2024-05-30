@@ -1,0 +1,21 @@
+/* src/app/home/home.component.css */
+.cover-photo img {
+    width: 100%;
+    height: auto;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.description {
+    text-align: center;
+    font-size: 1.2em;
+}

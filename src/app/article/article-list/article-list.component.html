@@ -1,0 +1,14 @@
+<div class="container mt-5">
+    <div class="row">
+        <div *ngFor="let article of articles" class="col-md-4 mb-4">
+            <div class="card">
+                <img [src]="article.imageUrl" class="card-img-top" alt="{{ article.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.name }}</h5>
+                    <p class="card-text">Price: {{ article.price }} USD</p>
+                    <p class="card-text">Size: {{ article.size }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

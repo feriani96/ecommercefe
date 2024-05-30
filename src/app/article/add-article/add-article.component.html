@@ -1,0 +1,33 @@
+<div class="container mt-5">
+    <div *ngIf="submitted">
+        <h4>Article added successfully!</h4>
+        <button class="btn btn-success" (click)="newArticle()">Add Another</button>
+    </div>
+
+    <div *ngIf="!submitted">
+        <form (ngSubmit)="saveArticle()">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="article.name" name="name">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" required [(ngModel)]="article.price" name="price">
+            </div>
+
+            <div class="form-group">
+                <label for="size">Size</label>
+                <input type="text" class="form-control" id="size" required [(ngModel)]="article.size" name="size">
+            </div>
+
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" class="form-control" id="imageUrl" required [(ngModel)]="article.imageUrl"
+                    name="imageUrl">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
