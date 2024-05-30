@@ -16,6 +16,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { ArticleListComponent } from './article/article-list/article-list.component';
 import { AddArticleComponent } from './article/add-article/add-article.component';
+import { EditArticleComponent } from './article/edit-article/edit-article.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AddArticleComponent } from './article/add-article/add-article.component
     BoardModeratorComponent,
     BoardUserComponent,
     ArticleListComponent,
-    AddArticleComponent
+    AddArticleComponent,
+    EditArticleComponent
   ],
   imports: [
     BrowserModule,
