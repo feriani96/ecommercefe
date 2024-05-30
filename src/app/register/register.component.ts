@@ -24,7 +24,7 @@ export class RegisterComponent {
 
     this.authService.register(username, email, password).subscribe({
       next: () => {
-        this.isSignUpSuccessful = true;
+        this.isSuccessful = true; // Définit la variable isSuccessful sur true
         this.isSignUpFailed = false;
       },
       error: err => {
