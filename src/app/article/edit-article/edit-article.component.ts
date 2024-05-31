@@ -9,7 +9,12 @@ import { Article } from 'src/app/models/acrticle';
   styleUrls: ['./edit-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
-  article: Article | undefined;
+  article: Article = {
+    name: '',
+    price: 0,
+    size: '',
+    imageUrl: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -18,13 +23,18 @@ export class EditArticleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getArticle(this.route.snapshot.paramMap.get('id')!);
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log('Article ID:', id);
+    if (id) {
+      this.getArticle(id);
+    }
   }
 
   getArticle(id: string): void {
     this.articleService.getArticleById(id).subscribe(
       (data: Article) => {
-        this.article = data;
+        console.log('Article data:', data);
+        this.article = data; 
       },
       error => {
         console.error('There was an error!', error);
@@ -44,5 +54,4 @@ export class EditArticleComponent implements OnInit {
       );
     }
   }
-
 }

@@ -24,6 +24,10 @@ export class ArticleService {
     return this.http.post<Article>(API_URL, article);
   }
 
+  // updateArticle(id: string, article: Article): Observable<Article> {
+  //   return this.http.put<Article>(`${API_URL}/${id}`, article);
+  // }
+
   updateArticle(id: string, article: Article): Observable<Article> {
     return this.http.put<Article>(`${API_URL}/${id}`, article);
   }
