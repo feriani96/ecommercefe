@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,9 @@ import { UserService } from '../_services/user.service';
 })
 export class HomeComponent implements OnInit {
   content?: string;
+  // successMessage: string | null = null;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.userService.getPublicContent().subscribe({
@@ -29,5 +31,9 @@ export class HomeComponent implements OnInit {
         }
       }
     });
+
+    // this.route.queryParams.subscribe(params => {
+    //   this.successMessage = params['message'] || null;
+    // });
   }
 }

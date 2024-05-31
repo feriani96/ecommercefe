@@ -10,6 +10,7 @@ import { Article } from 'src/app/models/acrticle';
 })
 export class EditArticleComponent implements OnInit {
   article: Article = {
+    _id: '',
     name: '',
     price: 0,
     size: '',
@@ -24,7 +25,6 @@ export class EditArticleComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log('Article ID:', id);
     if (id) {
       this.getArticle(id);
     }
@@ -33,8 +33,7 @@ export class EditArticleComponent implements OnInit {
   getArticle(id: string): void {
     this.articleService.getArticleById(id).subscribe(
       (data: Article) => {
-        console.log('Article data:', data);
-        this.article = data; 
+        this.article = data;
       },
       error => {
         console.error('There was an error!', error);
@@ -46,7 +45,7 @@ export class EditArticleComponent implements OnInit {
     if (this.article && this.article._id) {
       this.articleService.updateArticle(this.article._id, this.article).subscribe(
         response => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home'], { queryParams: { message: 'Article updated successfully!' } });
         },
         error => {
           console.error('There was an error!', error);
@@ -54,4 +53,6 @@ export class EditArticleComponent implements OnInit {
       );
     }
   }
+
+  
 }

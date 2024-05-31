@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'; // Importez ActivatedRoute
 import { ArticleService } from 'src/app/_services/article.service';
 import { Article } from 'src/app/models/acrticle';
 
@@ -10,15 +10,28 @@ import { Article } from 'src/app/models/acrticle';
 })
 
 export class ArticleListComponent implements OnInit{
-
   articles: Article[] = [];
+  articleIdToDelete: string | undefined;
+  showModal: boolean = false;
+  successMessage: string | null = null;
 
-  constructor(private articleService: ArticleService, private router: Router) {}
+  constructor(
+    private articleService: ArticleService,
+    private router: Router,
+    private route: ActivatedRoute // Injectez ActivatedRoute ici
+  ) {}
 
   ngOnInit(): void {
     this.loadArticles();
+    this.route.queryParams.subscribe(params => {
+      this.successMessage = params['message'] || null;
+      if (this.successMessage) {
+        setTimeout(() => {
+          this.successMessage = null; // Réinitialiser le message après 30 secondes
+        }, 3000); // 10 secondes
+      }
+    });
   }
-
   loadArticles(): void {
     this.articleService.getAllArticles().subscribe(
       (data: Article[]) => {
@@ -30,17 +43,18 @@ export class ArticleListComponent implements OnInit{
     );
   }
 
-  editArticle(article: Article): void {
-    if (article._id) {
-      this.router.navigate(['/update-article', article._id]);
-    }
+  confirmDelete(id: string): void {
+    this.articleIdToDelete = id; // Stocker l'ID de l'article à supprimer
+    this.showModal = true;
   }
 
-  deleteArticle(id: string | undefined): void {
-    if (id) {
-      this.articleService.deleteArticle(id).subscribe(
+  deleteArticle(): void {
+    if (this.articleIdToDelete) { // Vérifier si l'ID est défini
+      this.articleService.deleteArticle(this.articleIdToDelete).subscribe(
         response => {
-          this.loadArticles(); // Reload articles after deletion
+          this.showModal = false;
+          this.router.navigate(['/home'], { queryParams: { message: 'Article deleted successfully!' } });
+          this.loadArticles(); // Recharger la liste des articles après la suppression
         },
         error => {
           console.error('There was an error!', error);
